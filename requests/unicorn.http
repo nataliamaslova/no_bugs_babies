@@ -1,0 +1,26 @@
+### POST request to example server
+POST https://crudcrud.com/api/ed42d7fd71d74905806e8fd52a476ff4/unicorn
+Content-Type: application/json
+
+{
+  "name": "Tiny",
+  "tailColor": "green"
+}
+
+###
+GET https://crudcrud.com/api/ed42d7fd71d74905806e8fd52a476ff4/unicorn/66e431f5fe837603e816bf1c
+Accept: application/json
+
+###
+DELETE https://crudcrud.com/api/ed42d7fd71d74905806e8fd52a476ff4/unicorn/66e431f5fe837603e816bf1c
+Accept: application/json
+
+###
+PUT https://crudcrud.com/api/ed42d7fd71d74905806e8fd52a476ff4/unicorn/66e3e51afe837603e816be02
+Content-Type: application/json
+
+{
+  "name": "Tiny",
+  "tailColor": "blue"
+}
+
