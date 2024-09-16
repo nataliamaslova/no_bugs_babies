@@ -12,7 +12,6 @@ import static org.hamcrest.Matchers.hasKey;
 
 public class StudentRequests {
 
-
     public static Student createStudent(Student student) {
         ObjectMapper objectMapper = new ObjectMapper();
         String studentJson = null;
@@ -23,15 +22,15 @@ public class StudentRequests {
         }
         // given - when - then   BDD
         return given()
-                .body(studentJson)
-                .contentType(ContentType.JSON)
+                    .body(studentJson)
+                    .contentType(ContentType.JSON)
                 .when()
-                .post("/student")
+                    .post("/student")
                 .then()
-                .assertThat()
-                .statusCode(201)
-                .body("$", hasKey("_id"))
-                .extract().as(Student.class, ObjectMapperType.GSON);
+                    .assertThat()
+                    .statusCode(201)
+                    .body("$", hasKey("_id"))
+                    .extract().as(Student.class, ObjectMapperType.GSON);
     }
 
     public static void deleteStudent(String id) {

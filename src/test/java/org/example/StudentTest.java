@@ -16,7 +16,7 @@ public class StudentTest {
     @BeforeAll
     public static void setup() {
         RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
-        RestAssured.baseURI = "https://crudcrud.com/api/1e540121601b49a195d5506a25617ddd";
+        RestAssured.baseURI = "https://crudcrud.com/api/21cabcb415c549b7adf349e0e2ee3c27";
 
         // Принцип программирования DRY: Do not Repeat Yourself
     }
@@ -46,7 +46,7 @@ public class StudentTest {
         Student createdStudent = StudentRequests.createStudent(student);
 
         // Step 2 Delete student
-        StudentRequests.deleteStudent(student.getId());
+        StudentRequests.deleteStudent(createdStudent.getId());
 
         //Step 3 Verify that student doesn't exist any more
         given()
