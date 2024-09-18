@@ -16,23 +16,25 @@ public class StudentRequests {
         String studentJson = studentToJson(student);
         // given - when - then   BDD
         return given()
-                    .body(studentJson)
-                    .contentType(ContentType.JSON)
+                .body(studentJson)
+                .contentType(ContentType.JSON)
                 .when()
-                    .post("/student")
+                .post("/student")
                 .then()
-                    .assertThat()
-                    .statusCode(HttpStatus.SC_CREATED)
-                    .body("$", hasKey("_id"))
-                    .extract().as(Student.class, ObjectMapperType.GSON);
+                .assertThat()
+                .statusCode(HttpStatus.SC_CREATED)
+                .body("$", hasKey("_id"))
+                .extract().as(Student.class, ObjectMapperType.GSON);
     }
 
     public static void deleteStudent(String id) {
-        given().delete("/student/" + id)
-          .then()
+        given()
+                .delete("/student/" + id)
+                .then()
                 .assertThat()
                 .statusCode(HttpStatus.SC_OK);
     }
+
     private static String studentToJson(Student student) {
         ObjectMapper objectMapper = new ObjectMapper();
         String studentJson = null;

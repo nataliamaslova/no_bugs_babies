@@ -36,7 +36,8 @@ public class UnicornRequests {
     }
 
     public static void deleteUnicorn(String id) {
-        given().delete("/unicorn/" + id)
+        given()
+                .delete("/unicorn/" + id)
                 .then()
                 .assertThat()
                 .statusCode(HttpStatus.SC_OK);
@@ -47,13 +48,13 @@ public class UnicornRequests {
         String unicornJson = unicornToJson(unicorn);
 
         given()
-               .body(unicornJson)
-               .contentType(ContentType.JSON)
-            .when()
+                .body(unicornJson)
+                .contentType(ContentType.JSON)
+                .when()
                 .put("/unicorn/" + unicorn.getId())
                 .then()
-                    .assertThat()
-                    .statusCode(HttpStatus.SC_OK);
+                .assertThat()
+                .statusCode(HttpStatus.SC_OK);
     }
 
     private static String unicornToJson(Unicorn unicorn) {
