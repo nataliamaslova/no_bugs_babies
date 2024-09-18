@@ -18,26 +18,27 @@ public class StudentRequests {
         return given()
                 .body(studentJson)
                 .contentType(ContentType.JSON)
-                .when()
+        .when()
                 .post("/student")
-                .then()
+        .then()
                 .assertThat()
                 .statusCode(HttpStatus.SC_CREATED)
                 .body("$", hasKey("_id"))
-                .extract().as(Student.class, ObjectMapperType.GSON);
+        .extract()
+                .as(Student.class, ObjectMapperType.GSON);
     }
 
     public static void deleteStudent(String id) {
         given()
                 .delete("/student/" + id)
-                .then()
+        .then()
                 .assertThat()
                 .statusCode(HttpStatus.SC_OK);
     }
 
     private static String studentToJson(Student student) {
         ObjectMapper objectMapper = new ObjectMapper();
-        String studentJson = null;
+        String studentJson;
         try {
             studentJson = objectMapper.writeValueAsString(student);
         } catch (JsonProcessingException e) {

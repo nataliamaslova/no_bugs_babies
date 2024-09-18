@@ -10,7 +10,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.hasKey;
 
 public class StudentTest {
     @BeforeAll
@@ -50,7 +49,7 @@ public class StudentTest {
         // Step 3 Verify that student doesn't exist any more
         given()
                 .get("/student/" + createdStudent.getId())
-                .then()
+       .then()
                 .assertThat()
                 .statusCode(HttpStatus.SC_NOT_FOUND);
     }

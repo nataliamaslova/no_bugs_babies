@@ -14,33 +14,34 @@ public class UnicornRequests {
     public static Unicorn createUnicorn(Unicorn unicorn) {
         String unicornJson = unicornToJson(unicorn);
         return given()
-                .body(unicornJson)
-                .contentType(ContentType.JSON)
-                .when()
-                .post("/unicorn")
-                .then()
-                .assertThat()
-                .statusCode(HttpStatus.SC_CREATED)
-                .body("$", hasKey("_id"))
-                .extract()
-                .as(Unicorn.class, ObjectMapperType.GSON);
+                    .body(unicornJson)
+                    .contentType(ContentType.JSON)
+               .when()
+                    .post("/unicorn")
+               .then()
+                    .assertThat()
+                    .statusCode(HttpStatus.SC_CREATED)
+                    .body("$", hasKey("_id"))
+               .extract()
+                    .as(Unicorn.class, ObjectMapperType.GSON);
     }
 
     public static Unicorn readUnicornById(String id) {
         return given()
-                .get("/unicorn/" + id)
-                .then()
-                .assertThat()
-                .statusCode(HttpStatus.SC_OK)
-                .extract().as(Unicorn.class, ObjectMapperType.GSON);
+                    .get("/unicorn/" + id)
+               .then()
+                    .assertThat()
+                    .statusCode(HttpStatus.SC_OK)
+               .extract()
+                    .as(Unicorn.class, ObjectMapperType.GSON);
     }
 
     public static void deleteUnicorn(String id) {
         given()
-                .delete("/unicorn/" + id)
-                .then()
-                .assertThat()
-                .statusCode(HttpStatus.SC_OK);
+             .delete("/unicorn/" + id)
+        .then()
+             .assertThat()
+             .statusCode(HttpStatus.SC_OK);
     }
 
     public static void updateUnicornTailColor(Unicorn unicorn, String tailColor) {
@@ -48,18 +49,18 @@ public class UnicornRequests {
         String unicornJson = unicornToJson(unicorn);
 
         given()
-                .body(unicornJson)
-                .contentType(ContentType.JSON)
-                .when()
-                .put("/unicorn/" + unicorn.getId())
-                .then()
-                .assertThat()
-                .statusCode(HttpStatus.SC_OK);
+              .body(unicornJson)
+              .contentType(ContentType.JSON)
+        .when()
+              .put("/unicorn/" + unicorn.getId())
+        .then()
+              .assertThat()
+              .statusCode(HttpStatus.SC_OK);
     }
 
     private static String unicornToJson(Unicorn unicorn) {
         ObjectMapper objectMapper = new ObjectMapper();
-        String unicornJson = null;
+        String unicornJson;
         try {
             unicornJson = objectMapper.writeValueAsString(unicorn);
         } catch (JsonProcessingException e) {

@@ -6,7 +6,6 @@ import io.restassured.filter.log.ResponseLoggingFilter;
 import org.apache.http.HttpStatus;
 import org.example.api.UnicornRequests;
 import org.example.api.models.Unicorn;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -45,7 +44,7 @@ public class UnicornTest {
         // Step 3 Verify that unicorn doesn't exist any more
         given()
                 .get("/unicorn/" + createdUnicorn.getId())
-                .then()
+        .then()
                 .assertThat()
                 .statusCode(HttpStatus.SC_NOT_FOUND);
     }
@@ -63,7 +62,7 @@ public class UnicornTest {
         //Step 3 Verify that unicorn tailColor updated
         given()
                 .get("/unicorn/" + createdUnicorn.getId())
-                .then()
+        .then()
                 .assertThat()
                 .statusCode(HttpStatus.SC_OK)
                 .body("tailColor", equalTo(expectedColor));
