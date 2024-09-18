@@ -20,7 +20,7 @@ public class UnicornRequests {
                 .post("/unicorn")
                 .then()
                 .assertThat()
-                .statusCode(201)
+                .statusCode(HttpStatus.SC_CREATED)
                 .body("$", hasKey("_id"))
                 .extract()
                 .as(Unicorn.class, ObjectMapperType.GSON);

@@ -47,7 +47,7 @@ public class StudentTest {
         // Step 2 Delete student
         StudentRequests.deleteStudent(createdStudent.getId());
 
-        //Step 3 Verify that student doesn't exist any more
+        // Step 3 Verify that student doesn't exist any more
         given()
                 .get("/student/" + createdStudent.getId())
                 .then()

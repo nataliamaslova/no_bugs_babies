@@ -35,14 +35,14 @@ public class UnicornTest {
 
     @Test
     public void userShouldBeAbleDeleteExistingUnicorn() {
-//         Step 1 Create unicorn
+        // Step 1 Create unicorn
         Unicorn unicorn = Unicorn.builder().name("Nitty").tailColor("pink").build();
         Unicorn createdUnicorn = UnicornRequests.createUnicorn(unicorn);
 
         // Step 2 Delete unicorn
         UnicornRequests.deleteUnicorn(createdUnicorn.getId());
 
-        //Step 3 Verify that unicorn doesn't exist any more
+        // Step 3 Verify that unicorn doesn't exist any more
         given()
                 .get("/unicorn/" + createdUnicorn.getId())
                 .then()
@@ -60,7 +60,7 @@ public class UnicornTest {
         // Step 2 Update unicorn
         UnicornRequests.updateUnicornTailColor(createdUnicorn, expectedColor);
 
-        //Step 3 Verify that unicorn tail updated
+        //Step 3 Verify that unicorn tailColor updated
         given()
                 .get("/unicorn/" + createdUnicorn.getId())
                 .then()
