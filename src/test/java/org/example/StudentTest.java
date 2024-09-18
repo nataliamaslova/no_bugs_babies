@@ -16,7 +16,7 @@ public class StudentTest {
     @BeforeAll
     public static void setup() {
         RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
-        RestAssured.baseURI = "https://crudcrud.com/api/21cabcb415c549b7adf349e0e2ee3c27";
+        RestAssured.baseURI = "https://crudcrud.com/api/4933172b3f0e4bfb873d95919fb93693";
 
         // Принцип программирования DRY: Do not Repeat Yourself
     }
@@ -27,7 +27,7 @@ public class StudentTest {
 
         // сериализация из JSON в объект и наоборот
         Student student = Student.builder().name("Peter Lomin").grade(2).build();
-        Student studentCreated = StudentRequests.createStudent(student);
+        StudentRequests.createStudent(student);
         }
 
     @Test
@@ -42,7 +42,6 @@ public class StudentTest {
 
         // Step 1 Create student
         Student student = Student.builder().name("Peter Lomin").grade(2).build();
-
         Student createdStudent = StudentRequests.createStudent(student);
 
         // Step 2 Delete student
@@ -50,8 +49,8 @@ public class StudentTest {
 
         //Step 3 Verify that student doesn't exist any more
         given()
-                .get("/student/" + student.getId())
-        .then()
+                .get("/student/" + createdStudent.getId())
+                .then()
                 .assertThat()
                 .statusCode(HttpStatus.SC_NOT_FOUND);
     }

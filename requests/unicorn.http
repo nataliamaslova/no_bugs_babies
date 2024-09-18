@@ -1,5 +1,5 @@
 ### POST request to example server
-POST https://crudcrud.com/api/ed42d7fd71d74905806e8fd52a476ff4/unicorn
+POST https://crudcrud.com/api/dc9f774f028a437c8a2211b187731689/unicorn
 Content-Type: application/json
 
 {
@@ -8,15 +8,15 @@ Content-Type: application/json
 }
 
 ###
-GET https://crudcrud.com/api/ed42d7fd71d74905806e8fd52a476ff4/unicorn/66e431f5fe837603e816bf1c
+GET https://crudcrud.com/api/dc9f774f028a437c8a2211b187731689/unicorn/
 Accept: application/json
 
 ###
-DELETE https://crudcrud.com/api/ed42d7fd71d74905806e8fd52a476ff4/unicorn/66e431f5fe837603e816bf1c
+DELETE https://crudcrud.com/api/dc9f774f028a437c8a2211b187731689/unicorn/66ea8dfbfe837603e816c64a
 Accept: application/json
 
 ###
-PUT https://crudcrud.com/api/ed42d7fd71d74905806e8fd52a476ff4/unicorn/66e3e51afe837603e816be02
+PUT https://crudcrud.com/api/dc9f774f028a437c8a2211b187731689/unicorn/66e3e51afe837603e816be02
 Content-Type: application/json
 
 {

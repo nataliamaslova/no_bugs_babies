@@ -13,13 +13,7 @@ import static org.hamcrest.Matchers.hasKey;
 public class StudentRequests {
 
     public static Student createStudent(Student student) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        String studentJson = null;
-        try {
-            studentJson = objectMapper.writeValueAsString(student);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+        String studentJson = studentToJson(student);
         // given - when - then   BDD
         return given()
                     .body(studentJson)
@@ -35,8 +29,19 @@ public class StudentRequests {
 
     public static void deleteStudent(String id) {
         given().delete("/student/" + id)
-                .then()
+          .then()
                 .assertThat()
                 .statusCode(HttpStatus.SC_OK);
     }
+    private static String studentToJson(Student student) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String studentJson = null;
+        try {
+            studentJson = objectMapper.writeValueAsString(student);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        return studentJson;
+    }
+
 }

@@ -3,46 +3,48 @@ package org.example;
 import io.restassured.RestAssured;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
-import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
-import org.example.api.StudentRequests;
 import org.example.api.UnicornRequests;
+import org.example.api.models.Unicorn;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
 
 public class UnicornTest {
     @BeforeAll
     public static void setup() {
         RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
-        RestAssured.baseURI = "https://crudcrud.com/api/ed42d7fd71d74905806e8fd52a476ff4";
+        RestAssured.baseURI = "https://crudcrud.com/api/dc9f774f028a437c8a2211b187731689";
     }
 
     @Test
     public void userShouldBeAbleCreateUnicorn() {
-        UnicornRequests.createUnicorn("{\n" +
-                "  \"name\": \"Tiny\",\n" +
-                "  \"tailColor\": \"green\"\n" +
-                "}");
+        Unicorn unicorn = Unicorn.builder().name("Tiny").tailColor("green").build();
+        UnicornRequests.createUnicorn(unicorn);
+    }
+
+    @Test
+    public void userShouldBeAbleReadUnicorn() {
+        String id = "66ea9a9bfe837603e816c68a";
+        Unicorn foundedUnicorn = UnicornRequests.readUnicornById(id);
+        System.out.println(foundedUnicorn);
     }
 
     @Test
     public void userShouldBeAbleDeleteExistingUnicorn() {
-        // Step 1 Create unicorn
-        String body = "\n" +
-        "  \"name\": \"Nitty\",\n" +
-                "  \"tailColor\": \"pink\"\n" +
-                "}";
-        String id = UnicornRequests.createUnicorn(body);
+//         Step 1 Create unicorn
+        Unicorn unicorn = Unicorn.builder().name("Nitty").tailColor("pink").build();
+        Unicorn createdUnicorn = UnicornRequests.createUnicorn(unicorn);
 
         // Step 2 Delete unicorn
-        UnicornRequests.deleteUnicorn(id);
+        UnicornRequests.deleteUnicorn(createdUnicorn.getId());
 
         //Step 3 Verify that unicorn doesn't exist any more
         given()
-                .get("/unicorn/" + id)
+                .get("/unicorn/" + createdUnicorn.getId())
                 .then()
                 .assertThat()
                 .statusCode(HttpStatus.SC_NOT_FOUND);
@@ -50,28 +52,20 @@ public class UnicornTest {
 
     @Test
     public void userShouldBeAbleUpdateExistingUnicorn() {
+        String expectedColor = "violet";
         // Step 1 Create unicorn
-        String id = UnicornRequests.createUnicorn("{\n" +
-                "  \"name\": \"Nitty\",\n" +
-                "  \"tailColor\": \"pink\"\n" +
-                "}");
+        Unicorn unicorn = Unicorn.builder().name("Nitty").tailColor("pink").build();
+        Unicorn createdUnicorn = UnicornRequests.createUnicorn(unicorn);
 
         // Step 2 Update unicorn
-        String body = "{\n" +
-                "  \"name\": \"Nitty\",\n" +
-                "  \"tailColor\": \"violet\"\n" +
-                "}";
-        UnicornRequests.putUnicorn(id, body);
+        UnicornRequests.updateUnicornTailColor(createdUnicorn, expectedColor);
 
         //Step 3 Verify that unicorn tail updated
-        String color = given()
-                .get("/unicorn/" + id)
+        given()
+                .get("/unicorn/" + createdUnicorn.getId())
                 .then()
                 .assertThat()
                 .statusCode(HttpStatus.SC_OK)
-                .extract()
-                .path("tailColor");
-
-        Assertions.assertEquals("violet", color);
+                .body("tailColor", equalTo(expectedColor));
     }
 }
