@@ -10,5 +10,11 @@ public class BankAccount {
     private String lastName;
     private String address;
     private String city;
-
+    private String state;
+    private String zipCode;
+    private String phone;
+    private String ssn;
+    private String userName;
+    private String password;
+    private String confirm;
 }
